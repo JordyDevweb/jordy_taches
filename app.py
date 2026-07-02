@@ -2199,6 +2199,12 @@ def page_connexion():
     </div>
     """)
 
+    # Important : Streamlit interdit de modifier directement la valeur
+    # d'un widget après sa création. On applique donc le changement AVANT
+    # d'afficher le bouton Connexion / Inscription.
+    if "auth_mode_a_appliquer" in st.session_state:
+        st.session_state["auth_mode"] = st.session_state.pop("auth_mode_a_appliquer")
+
     mode = st.radio(
         "Choisissez une action",
         ["Connexion", "Inscription"],
@@ -2306,7 +2312,7 @@ def page_connexion():
                     succes, message = creer_utilisateur(nom_propre, email_propre, mot_de_passe)
 
                     if succes:
-                        st.session_state["auth_mode"] = "Connexion"
+                        st.session_state["auth_mode_a_appliquer"] = "Connexion"
                         st.session_state["login_email"] = email_propre
                         st.session_state["auth_notice"] = "Compte créé avec succès. Connectez-vous maintenant avec votre mot de passe."
                         st.rerun()
