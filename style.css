@@ -2285,3 +2285,226 @@ table {
 .stTabs [data-baseweb="tab"]:hover p {
     color: #0f766e !important;
 }
+
+
+/* ==================================================
+   CORRECTION FINALE CONNEXION / INSCRIPTION
+   À garder tout en bas du fichier style.css
+================================================== */
+
+/* Enlève les éléments Streamlit au-dessus de l'application */
+header[data-testid="stHeader"],
+div[data-testid="stToolbar"],
+div[data-testid="stDecoration"],
+div[data-testid="stStatusWidget"],
+#MainMenu,
+footer {
+    display: none !important;
+    visibility: hidden !important;
+    height: 0 !important;
+}
+
+/* Page de connexion propre */
+.auth-page-clean {
+    max-width: 920px;
+    margin: 0 auto 22px auto;
+}
+
+.auth-brand-clean {
+    background: #ffffff;
+    border: 1px solid #e3e7ee;
+    border-radius: 26px;
+    padding: 34px 26px 32px 26px;
+    text-align: center;
+    box-shadow: 0 18px 48px rgba(15, 23, 42, 0.08);
+}
+
+.auth-logo-clean {
+    width: 112px;
+    height: 112px;
+    margin: 0 auto;
+    border-radius: 32px;
+    background: linear-gradient(135deg, #1e3a8a, #0f766e);
+    color: white !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 34px !important;
+    font-weight: 950 !important;
+    letter-spacing: -1px;
+    box-shadow: 0 20px 48px rgba(15, 118, 110, 0.22);
+}
+
+.auth-brand-name-clean {
+    margin-top: 16px;
+    color: #1e3a8a !important;
+    font-size: 30px !important;
+    font-weight: 950 !important;
+    letter-spacing: -0.4px;
+}
+
+.auth-brand-subtitle-clean {
+    margin-top: 8px;
+    color: #667085 !important;
+    font-size: 16px !important;
+    font-weight: 650 !important;
+}
+
+.auth-form-heading {
+    color: #101828 !important;
+    font-size: 24px !important;
+    font-weight: 950 !important;
+    margin-bottom: 6px;
+}
+
+.auth-form-subheading {
+    color: #667085 !important;
+    font-size: 14px !important;
+    font-weight: 650 !important;
+    margin-bottom: 22px;
+}
+
+/* Onglets Connexion / Inscription */
+.stTabs [data-baseweb="tab-list"] {
+    gap: 18px !important;
+    border-bottom: 1px solid #e5e7eb !important;
+    margin-bottom: 22px !important;
+}
+
+.stTabs [data-baseweb="tab"] {
+    color: #475569 !important;
+    font-weight: 850 !important;
+    padding: 12px 2px !important;
+}
+
+.stTabs [data-baseweb="tab"] p {
+    color: #475569 !important;
+    font-size: 17px !important;
+    font-weight: 850 !important;
+}
+
+.stTabs [aria-selected="true"] {
+    color: #1e3a8a !important;
+    border-bottom: 3px solid #1e3a8a !important;
+}
+
+.stTabs [aria-selected="true"] p {
+    color: #1e3a8a !important;
+}
+
+/* Formulaires plus professionnels */
+div[data-testid="stForm"] {
+    background: #ffffff !important;
+    border: 1px solid #e3e7ee !important;
+    border-radius: 24px !important;
+    padding: 30px 34px !important;
+    box-shadow: 0 18px 48px rgba(15, 23, 42, 0.08) !important;
+}
+
+/* Labels visibles */
+div[data-testid="stTextInput"] label,
+div[data-testid="stTextInput"] label p,
+div[data-testid="stTextArea"] label,
+div[data-testid="stTextArea"] label p,
+div[data-testid="stNumberInput"] label,
+div[data-testid="stNumberInput"] label p,
+div[data-testid="stDateInput"] label,
+div[data-testid="stDateInput"] label p,
+div[data-testid="stTimeInput"] label,
+div[data-testid="stTimeInput"] label p,
+div[data-testid="stSelectbox"] label,
+div[data-testid="stSelectbox"] label p {
+    color: #101828 !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    font-size: 15px !important;
+    font-weight: 850 !important;
+    margin-bottom: 7px !important;
+}
+
+/* Champs de saisie */
+div[data-testid="stTextInput"] input,
+div[data-testid="stTextArea"] textarea,
+div[data-baseweb="input"] input {
+    background: #ffffff !important;
+    color: #101828 !important;
+    border: 1.5px solid #cbd5e1 !important;
+    border-radius: 14px !important;
+    min-height: 52px !important;
+    font-size: 16px !important;
+    font-weight: 650 !important;
+    padding: 12px 15px !important;
+    box-shadow: none !important;
+}
+
+div[data-testid="stTextInput"] input:focus,
+div[data-testid="stTextArea"] textarea:focus,
+div[data-baseweb="input"] input:focus {
+    border-color: #1e3a8a !important;
+    box-shadow: 0 0 0 4px rgba(30, 58, 138, 0.12) !important;
+}
+
+div[data-testid="stTextInput"] input::placeholder,
+div[data-testid="stTextArea"] textarea::placeholder {
+    color: #94a3b8 !important;
+    opacity: 1 !important;
+}
+
+/* Boutons auth */
+div[data-testid="stForm"] button[kind="primary"],
+div[data-testid="stForm"] .stFormSubmitButton button {
+    background: linear-gradient(135deg, #1e3a8a, #0f766e) !important;
+    color: white !important;
+    border: none !important;
+    border-radius: 14px !important;
+    min-height: 50px !important;
+    padding: 12px 24px !important;
+    font-size: 15px !important;
+    font-weight: 900 !important;
+    box-shadow: 0 14px 30px rgba(30, 58, 138, 0.20) !important;
+}
+
+div[data-testid="stForm"] button[kind="primary"]:hover,
+div[data-testid="stForm"] .stFormSubmitButton button:hover {
+    transform: translateY(-1px) !important;
+    box-shadow: 0 18px 34px rgba(15, 118, 110, 0.26) !important;
+}
+
+/* Correction icône oeil du mot de passe */
+div[data-testid="stTextInput"] button {
+    border-radius: 0 14px 14px 0 !important;
+    background: #252733 !important;
+    color: white !important;
+}
+
+/* Responsive connexion */
+@media (max-width: 768px) {
+    .auth-brand-clean {
+        padding: 26px 18px;
+        border-radius: 20px;
+    }
+
+    .auth-logo-clean {
+        width: 88px;
+        height: 88px;
+        border-radius: 26px;
+        font-size: 28px !important;
+    }
+
+    .auth-brand-name-clean {
+        font-size: 25px !important;
+    }
+
+    .auth-brand-subtitle-clean {
+        font-size: 14px !important;
+    }
+
+    div[data-testid="stForm"] {
+        padding: 22px 18px !important;
+        border-radius: 20px !important;
+    }
+
+    .stTabs [data-baseweb="tab"] p {
+        font-size: 15px !important;
+    }
+}
