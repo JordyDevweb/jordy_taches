@@ -1769,56 +1769,364 @@ def afficher_taches_liste(taches):
 
 
 def page_connexion():
+    # Interface connexion / inscription améliorée.
+    # Cette partie enlève les éléments Streamlit inutiles au-dessus du logo
+    # et corrige les textes trop clairs dans les formulaires.
+    st.markdown(
+        """
+        <style>
+            /* Cache les éléments Streamlit au-dessus du logo */
+            #MainMenu, header, footer {
+                visibility: hidden !important;
+                height: 0 !important;
+            }
+
+            [data-testid="stToolbar"],
+            [data-testid="stDecoration"],
+            [data-testid="stStatusWidget"] {
+                display: none !important;
+            }
+
+            .block-container {
+                padding-top: 1.2rem !important;
+            }
+
+            /* Page auth */
+            .auth-wrapper {
+                max-width: 1080px;
+                margin: 0 auto 32px auto;
+            }
+
+            .auth-hero-card {
+                background: linear-gradient(135deg, #071527 0%, #0f766e 100%);
+                border-radius: 32px;
+                padding: 38px 34px;
+                color: white;
+                text-align: center;
+                box-shadow: 0 24px 60px rgba(15, 23, 42, 0.18);
+                margin-bottom: 28px;
+                border: 1px solid rgba(255,255,255,0.10);
+            }
+
+            .auth-logo-pro {
+                width: 104px;
+                height: 104px;
+                border-radius: 30px;
+                background: linear-gradient(135deg, #1e3a8a, #0f766e);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                margin: auto;
+                font-size: 38px;
+                font-weight: 950;
+                color: white;
+                box-shadow: 0 18px 45px rgba(0, 0, 0, 0.25);
+                position: relative;
+            }
+
+            .auth-logo-pro::after {
+                content: "";
+                position: absolute;
+                inset: -7px;
+                border: 1px solid rgba(255,255,255,0.16);
+                border-radius: 36px;
+            }
+
+            .auth-title-pro {
+                margin-top: 17px;
+                font-size: 36px !important;
+                font-weight: 950;
+                color: white !important;
+                letter-spacing: -0.03em;
+            }
+
+            .auth-subtitle-pro {
+                margin-top: 8px;
+                color: rgba(255, 255, 255, 0.78) !important;
+                font-size: 16px !important;
+            }
+
+            .auth-benefits-pro {
+                display: flex;
+                justify-content: center;
+                gap: 14px;
+                flex-wrap: wrap;
+                margin-top: 24px;
+            }
+
+            .auth-benefit-item {
+                background: rgba(255, 255, 255, 0.10);
+                border: 1px solid rgba(255, 255, 255, 0.14);
+                border-radius: 16px;
+                padding: 10px 14px;
+                font-size: 13px !important;
+                font-weight: 750;
+                color: white !important;
+            }
+
+            .auth-section-title {
+                text-align: center;
+                margin-bottom: 22px;
+            }
+
+            .auth-section-title h2 {
+                font-size: 30px !important;
+                font-weight: 950 !important;
+                color: #101828 !important;
+                margin-bottom: 6px !important;
+                letter-spacing: -0.03em;
+            }
+
+            .auth-section-title p {
+                color: #667085 !important;
+                font-size: 15px !important;
+                margin: 0 !important;
+            }
+
+            /* Onglets Connexion / Inscription */
+            .stTabs [data-baseweb="tab-list"] {
+                gap: 18px !important;
+                border-bottom: 1px solid #e5e7eb !important;
+                margin-bottom: 20px !important;
+            }
+
+            .stTabs [data-baseweb="tab"] {
+                color: #475569 !important;
+                font-weight: 850 !important;
+                font-size: 17px !important;
+                padding: 12px 4px !important;
+            }
+
+            .stTabs [data-baseweb="tab"] p {
+                color: #475569 !important;
+                font-weight: 850 !important;
+                font-size: 17px !important;
+            }
+
+            .stTabs [aria-selected="true"] {
+                color: #1e3a8a !important;
+                border-bottom: 3px solid #1e3a8a !important;
+            }
+
+            .stTabs [aria-selected="true"] p {
+                color: #1e3a8a !important;
+            }
+
+            .stTabs [data-baseweb="tab"]:hover p {
+                color: #0f766e !important;
+            }
+
+            /* Carte formulaire */
+            div[data-testid="stForm"] {
+                background: #ffffff !important;
+                border: 1px solid #e5e7eb !important;
+                border-radius: 26px !important;
+                padding: 30px 34px !important;
+                box-shadow: 0 20px 50px rgba(15, 23, 42, 0.10) !important;
+            }
+
+            div[data-testid="stForm"] h3 {
+                color: #101828 !important;
+                font-weight: 950 !important;
+                font-size: 23px !important;
+                margin-bottom: 22px !important;
+            }
+
+            /* Correction des labels invisibles */
+            div[data-testid="stTextInput"] label,
+            div[data-testid="stTextInput"] label p,
+            div[data-testid="stTextArea"] label,
+            div[data-testid="stTextArea"] label p,
+            div[data-testid="stNumberInput"] label,
+            div[data-testid="stNumberInput"] label p,
+            div[data-testid="stDateInput"] label,
+            div[data-testid="stDateInput"] label p,
+            div[data-testid="stTimeInput"] label,
+            div[data-testid="stTimeInput"] label p,
+            div[data-testid="stSelectbox"] label,
+            div[data-testid="stSelectbox"] label p {
+                color: #101828 !important;
+                opacity: 1 !important;
+                visibility: visible !important;
+                font-size: 15px !important;
+                font-weight: 800 !important;
+                margin-bottom: 7px !important;
+            }
+
+            div[data-testid="stTextInput"] input,
+            div[data-testid="stTextArea"] textarea,
+            div[data-baseweb="input"] input {
+                background: #ffffff !important;
+                color: #101828 !important;
+                border: 1.5px solid #cbd5e1 !important;
+                border-radius: 15px !important;
+                min-height: 52px !important;
+                font-size: 16px !important;
+                font-weight: 650 !important;
+                padding: 12px 15px !important;
+                box-shadow: none !important;
+            }
+
+            div[data-testid="stTextInput"] input:focus,
+            div[data-testid="stTextArea"] textarea:focus,
+            div[data-baseweb="input"] input:focus {
+                border-color: #1e3a8a !important;
+                box-shadow: 0 0 0 4px rgba(30, 58, 138, 0.12) !important;
+            }
+
+            div[data-testid="stTextInput"] input::placeholder,
+            div[data-testid="stTextArea"] textarea::placeholder {
+                color: #94a3b8 !important;
+                opacity: 1 !important;
+            }
+
+            div[data-testid="stForm"] button[kind="primary"],
+            .stButton button {
+                background: linear-gradient(135deg, #1e3a8a, #0f766e) !important;
+                color: white !important;
+                border: none !important;
+                border-radius: 15px !important;
+                padding: 12px 24px !important;
+                min-height: 48px !important;
+                font-size: 15px !important;
+                font-weight: 850 !important;
+                box-shadow: 0 12px 28px rgba(30, 58, 138, 0.22) !important;
+                transition: all 0.2s ease-in-out !important;
+            }
+
+            div[data-testid="stForm"] button[kind="primary"]:hover,
+            .stButton button:hover {
+                transform: translateY(-1px);
+                box-shadow: 0 16px 34px rgba(15, 118, 110, 0.26) !important;
+            }
+
+            div[data-testid="stAlert"] {
+                border-radius: 18px !important;
+                font-weight: 700 !important;
+            }
+
+            @media (max-width: 768px) {
+                .auth-hero-card {
+                    padding: 28px 22px;
+                    border-radius: 24px;
+                }
+
+                .auth-title-pro {
+                    font-size: 28px !important;
+                }
+
+                .auth-subtitle-pro {
+                    font-size: 14px !important;
+                }
+
+                div[data-testid="stForm"] {
+                    padding: 24px 20px !important;
+                    border-radius: 22px !important;
+                }
+
+                .stTabs [data-baseweb="tab"] p {
+                    font-size: 15px !important;
+                }
+            }
+        </style>
+        """,
+        unsafe_allow_html=True
+    )
+
     md("""
-    <div class="jb-card" style="text-align:center;max-width:760px;margin:auto;">
-        <div class="jb-logo-mark" style="position: relative; display: flex; align-items: center; justify-content: center; margin: auto;">
-            JB
-            <i class="bi bi-arrow-up-right-short" style="position: absolute; top: 8px; right: 8px; font-size: 24px; color: white;"></i>
-        </div>
-        <div style="font-size:44px;font-weight:950;color:#0d6efd;margin-top:12px;">
-            JordyBusiness
-        </div>
-        <div class="jb-muted">
-            jordy_taches — assistant de tâches, budget et paiements programmés
+    <div class="auth-wrapper">
+        <div class="auth-hero-card">
+            <div class="auth-logo-pro">JB</div>
+            <div class="auth-title-pro">JordyBusiness</div>
+            <div class="auth-subtitle-pro">
+                Gérez vos tâches, votre budget et vos paiements programmés avec clarté.
+            </div>
+            <div class="auth-benefits-pro">
+                <div class="auth-benefit-item"><i class="bi bi-shield-check"></i> Espace sécurisé</div>
+                <div class="auth-benefit-item"><i class="bi bi-wallet2"></i> Suivi financier</div>
+                <div class="auth-benefit-item"><i class="bi bi-list-check"></i> Tâches organisées</div>
+            </div>
         </div>
     </div>
     """)
 
-    col1, col2, col3 = st.columns([1, 1.4, 1])
+    col1, col2, col3 = st.columns([1, 1.15, 1])
 
     with col2:
+        md("""
+        <div class="auth-section-title">
+            <h2>Bienvenue</h2>
+            <p>Connectez-vous ou créez un compte pour accéder à votre espace.</p>
+        </div>
+        """)
+
         tab1, tab2 = st.tabs(["Connexion", "Inscription"])
 
         with tab1:
             with st.form("connexion"):
-                st.subheader("Se connecter")
-                email = st.text_input("Email")
-                mot_de_passe = st.text_input("Mot de passe", type="password")
+                st.markdown("### Se connecter")
+
+                email = st.text_input(
+                    "Adresse email",
+                    placeholder="exemple@email.com"
+                )
+
+                mot_de_passe = st.text_input(
+                    "Mot de passe",
+                    type="password",
+                    placeholder="Votre mot de passe"
+                )
+
                 bouton = st.form_submit_button("Connexion")
 
                 if bouton:
-                    utilisateur = connecter_utilisateur(email, mot_de_passe)
-
-                    if utilisateur:
-                        st.session_state["connecte"] = True
-                        st.session_state["utilisateur"] = utilisateur
-                        st.session_state.pop("automatisations_lancees", None)
-                        st.rerun()
+                    if email.strip() == "" or mot_de_passe.strip() == "":
+                        st.error("Veuillez remplir tous les champs.")
                     else:
-                        st.error("Email ou mot de passe incorrect.")
+                        utilisateur = connecter_utilisateur(email, mot_de_passe)
+
+                        if utilisateur:
+                            st.session_state["connecte"] = True
+                            st.session_state["utilisateur"] = utilisateur
+                            st.session_state.pop("automatisations_lancees", None)
+                            st.success("Connexion réussie. Heureux de vous revoir.")
+                            st.rerun()
+                        else:
+                            st.error("Email ou mot de passe incorrect.")
 
         with tab2:
             with st.form("inscription"):
-                st.subheader("Créer un compte")
-                nom = st.text_input("Nom complet")
-                email = st.text_input("Email")
-                mot_de_passe = st.text_input("Mot de passe", type="password")
-                confirmation = st.text_input("Confirmer le mot de passe", type="password")
+                st.markdown("### Créer un compte")
+
+                nom = st.text_input(
+                    "Nom complet",
+                    placeholder="Votre nom complet"
+                )
+
+                email = st.text_input(
+                    "Adresse email",
+                    placeholder="exemple@email.com"
+                )
+
+                mot_de_passe = st.text_input(
+                    "Mot de passe",
+                    type="password",
+                    placeholder="Minimum 6 caractères"
+                )
+
+                confirmation = st.text_input(
+                    "Confirmer le mot de passe",
+                    type="password",
+                    placeholder="Répétez le mot de passe"
+                )
+
                 bouton = st.form_submit_button("Créer mon compte")
 
                 if bouton:
                     if nom.strip() == "" or email.strip() == "" or mot_de_passe.strip() == "":
-                        st.error("Tous les champs sont obligatoires.")
+                        st.error("Le nom, l’email et le mot de passe sont obligatoires.")
+                    elif "@" not in email or "." not in email:
+                        st.error("Veuillez entrer une adresse email valide.")
                     elif mot_de_passe != confirmation:
                         st.error("Les mots de passe ne correspondent pas.")
                     elif len(mot_de_passe) < 6:
@@ -1827,7 +2135,7 @@ def page_connexion():
                         succes, message = creer_utilisateur(nom, email, mot_de_passe)
 
                         if succes:
-                            st.success(message)
+                            st.success(message + " Vous pouvez maintenant vous connecter.")
                         else:
                             st.error(message)
 
