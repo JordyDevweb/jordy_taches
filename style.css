@@ -2253,3 +2253,35 @@ table {
         padding: 10px !important;
     }
 }
+
+/* ================================
+   CORRECTION ONGLET CONNEXION / INSCRIPTION
+================================ */
+
+.stTabs [data-baseweb="tab-list"] {
+    gap: 12px !important;
+}
+
+.stTabs [data-baseweb="tab"] {
+    color: #475569 !important;
+    font-weight: 800 !important;
+    font-size: 16px !important;
+}
+
+.stTabs [data-baseweb="tab"] p {
+    color: #475569 !important;
+    font-weight: 800 !important;
+}
+
+.stTabs [aria-selected="true"] {
+    color: #1e3a8a !important;
+    border-bottom: 3px solid #1e3a8a !important;
+}
+
+.stTabs [aria-selected="true"] p {
+    color: #1e3a8a !important;
+}
+
+.stTabs [data-baseweb="tab"]:hover p {
+    color: #0f766e !important;
+}
