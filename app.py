@@ -3138,6 +3138,56 @@ if st.sidebar.button("Se déconnecter", use_container_width=True):
     st.rerun()
 
 
+
+# =========================
+# MENU RAPIDE POUR TÉLÉPHONE
+# Sur téléphone, la sidebar Streamlit est souvent cachée.
+# Ce menu permet d'aller directement vers les pages importantes.
+# =========================
+
+MENU_RAPIDE = [
+    ("dashboard", "Tableau de bord"),
+    ("ajouter_tache", "Ajouter une tâche"),
+    ("taches", "Mes tâches"),
+    ("ajouter_depense", "Ajouter une dépense"),
+    ("depenses", "Mes dépenses"),
+    ("budget", "Budget mensuel"),
+    ("paiements", "Paiements programmés"),
+    ("alertes", "Alertes"),
+    ("profil", "Mon profil"),
+]
+
+
+def afficher_menu_rapide_mobile():
+    page_actuelle = st.session_state.get("current_page", "dashboard")
+
+    st.markdown(
+        """
+        <div class="jb-mobile-menu-box">
+            <div class="jb-mobile-menu-title">Menu rapide</div>
+            <div class="jb-mobile-menu-text">
+                Sur téléphone, utilisez ce menu pour ajouter une tâche, saisir une dépense ou ouvrir vos pages.
+            </div>
+        </div>
+        """,
+        unsafe_allow_html=True
+    )
+
+    with st.expander("Ouvrir le menu", expanded=False):
+        for page_key, label in MENU_RAPIDE:
+            if page_key == page_actuelle:
+                st.markdown(
+                    f"<div class='jb-mobile-menu-active'>{nettoyer(label)}</div>",
+                    unsafe_allow_html=True
+                )
+            else:
+                if st.button(label, key=f"mobile_menu_{page_key}", use_container_width=True):
+                    changer_page(page_key)
+                    st.rerun()
+
+
+afficher_menu_rapide_mobile()
+
 # =========================
 # ROUTAGE DES PAGES
 # =========================
