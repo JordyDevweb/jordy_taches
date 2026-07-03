@@ -30,7 +30,6 @@ CATEGORIES_TACHES = [
     "Santé",
     "Courses",
     "Personnel",
-    "Assurance"
     "Autre"
 ]
 
@@ -1770,8 +1769,8 @@ def afficher_taches_liste(taches):
 
 
 def page_connexion():
-    # Page d'accueil / authentification premium
-    # Objectif : plus professionnelle sur PC, sans casser tablette/téléphone.
+    # Page connexion / inscription compacte et professionnelle.
+    # Style inspiré d'une carte centrale simple, sans casser le responsive mobile.
     md("""
     <style>
         header[data-testid="stHeader"],
@@ -1785,262 +1784,180 @@ def page_connexion():
             height: 0 !important;
         }
 
-        .block-container {
-            max-width: 1180px !important;
-            padding-top: 2.2rem !important;
-            padding-bottom: 4rem !important;
-            padding-left: 1.4rem !important;
-            padding-right: 1.4rem !important;
-        }
-
-        .auth-modern-shell {
-            width: 100%;
-            margin: 0;
-            padding: 0;
-        }
-
-        .auth-modern-hero {
-            position: relative;
-            overflow: hidden;
-            min-height: 560px;
-            border-radius: 34px;
-            padding: 38px 38px 34px 38px;
+        .stApp {
             background:
-                radial-gradient(circle at 16% 12%, rgba(59, 130, 246, 0.25), transparent 33%),
-                radial-gradient(circle at 88% 22%, rgba(20, 184, 166, 0.25), transparent 35%),
-                linear-gradient(135deg, #082f49 0%, #064e3b 100%);
-            color: white;
-            box-shadow: 0 28px 76px rgba(15, 23, 42, 0.22);
-            border: 1px solid rgba(255, 255, 255, 0.16);
+                radial-gradient(circle at top, rgba(13, 110, 253, 0.08), transparent 34%),
+                linear-gradient(180deg, #f6f8fb 0%, #eef2f7 100%) !important;
         }
 
-        .auth-modern-hero::before {
-            content: "";
-            position: absolute;
-            right: -110px;
-            bottom: -140px;
-            width: 310px;
-            height: 310px;
-            border-radius: 999px;
-            background: rgba(255, 255, 255, 0.08);
+        .block-container {
+            max-width: 520px !important;
+            padding-top: 1.1rem !important;
+            padding-left: 1rem !important;
+            padding-right: 1rem !important;
+            padding-bottom: 2rem !important;
         }
 
-        .auth-modern-hero::after {
-            content: "";
-            position: absolute;
-            right: 42px;
-            top: 42px;
-            width: 88px;
-            height: 88px;
-            border-radius: 28px;
-            background: rgba(255, 255, 255, 0.07);
-            border: 1px solid rgba(255, 255, 255, 0.10);
+        .auth-simple-top {
+            text-align: center;
+            margin: 0 auto 14px auto;
         }
 
-        .auth-modern-top {
-            display: flex;
+        .auth-simple-mini-badge {
+            display: inline-flex;
             align-items: center;
-            justify-content: space-between;
-            gap: 18px;
-            position: relative;
-            z-index: 1;
+            gap: 7px;
+            padding: 8px 13px;
+            border-radius: 999px;
+            background: #ecfdf5;
+            border: 1px solid #bbf7d0;
+            color: #0f766e !important;
+            font-size: 12px !important;
+            font-weight: 900 !important;
+            margin-bottom: 12px;
         }
 
-        .auth-modern-logo {
-            width: 76px;
-            height: 76px;
-            border-radius: 24px;
+        .auth-simple-card-head {
+            text-align: center;
+            margin-bottom: 18px;
+        }
+
+        .auth-simple-logo {
+            width: 82px;
+            height: 82px;
+            margin: 0 auto 12px auto;
+            border-radius: 18px;
+            background: linear-gradient(135deg, #1e3a8a 0%, #0f766e 100%);
+            color: white !important;
             display: flex;
             align-items: center;
             justify-content: center;
             font-size: 25px !important;
             font-weight: 950 !important;
-            color: #ffffff !important;
-            background: linear-gradient(135deg, #2563eb, #0f766e);
-            box-shadow: 0 18px 42px rgba(15, 118, 110, 0.32);
-            border: 1px solid rgba(255, 255, 255, 0.22);
+            box-shadow: 0 18px 38px rgba(15, 118, 110, 0.20);
+            border: 1px solid rgba(255, 255, 255, 0.55);
         }
 
-        .auth-modern-badge {
-            padding: 10px 14px;
-            border-radius: 999px;
-            color: rgba(255, 255, 255, 0.94) !important;
-            background: rgba(255, 255, 255, 0.13);
-            border: 1px solid rgba(255, 255, 255, 0.18);
-            font-size: 13px !important;
-            font-weight: 850 !important;
-            backdrop-filter: blur(10px);
-            white-space: nowrap;
-        }
-
-        .auth-modern-title {
-            position: relative;
-            z-index: 1;
-            margin-top: 42px;
-            font-size: 47px !important;
-            line-height: 1.02;
-            letter-spacing: -1.35px;
+        .auth-simple-title {
+            color: #0f766e !important;
+            font-size: 30px !important;
+            line-height: 1.05;
             font-weight: 950 !important;
-            color: #ffffff !important;
+            letter-spacing: -0.9px;
+            margin: 0;
         }
 
-        .auth-modern-subtitle {
-            position: relative;
-            z-index: 1;
-            margin-top: 16px;
-            max-width: 560px;
-            color: rgba(255, 255, 255, 0.84) !important;
-            font-size: 17px !important;
-            line-height: 1.72;
+        .auth-simple-title span {
+            color: #1e3a8a !important;
+            font-size: inherit !important;
+            font-weight: inherit !important;
+        }
+
+        .auth-simple-subtitle {
+            color: #667085 !important;
+            font-size: 14px !important;
             font-weight: 650 !important;
+            margin-top: 8px;
+            line-height: 1.45;
         }
 
-        .auth-modern-benefits {
-            position: relative;
-            z-index: 1;
+        .auth-simple-pills {
             display: flex;
+            justify-content: center;
             flex-wrap: wrap;
-            gap: 12px;
-            margin-top: 28px;
+            gap: 8px;
+            margin: 14px 0 4px 0;
         }
 
-        .auth-modern-benefit {
+        .auth-simple-pill {
+            padding: 7px 10px;
+            border-radius: 999px;
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            color: #334155 !important;
+            font-size: 12px !important;
+            font-weight: 800 !important;
             display: inline-flex;
             align-items: center;
-            gap: 9px;
-            padding: 12px 15px;
-            border-radius: 18px;
-            background: rgba(255, 255, 255, 0.12);
-            border: 1px solid rgba(255, 255, 255, 0.17);
-            color: #ffffff !important;
-            font-size: 14px !important;
-            font-weight: 850 !important;
-            backdrop-filter: blur(12px);
+            gap: 6px;
         }
 
-        .auth-modern-benefit i {
-            font-size: 18px !important;
-            color: #ffffff !important;
-        }
-
-        .auth-trust-card {
-            position: relative;
-            z-index: 1;
-            margin-top: 74px;
-            padding: 18px;
-            border-radius: 24px;
-            background: rgba(255, 255, 255, 0.105);
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            backdrop-filter: blur(14px);
-        }
-
-        .auth-trust-title {
-            color: #ffffff !important;
-            font-size: 16px !important;
-            font-weight: 950 !important;
-            margin-bottom: 6px;
-        }
-
-        .auth-trust-text {
-            color: rgba(255, 255, 255, 0.76) !important;
+        .auth-simple-pill i {
+            color: #0f766e !important;
             font-size: 13px !important;
-            line-height: 1.55;
-            font-weight: 650 !important;
         }
 
-        .auth-section-title {
-            text-align: left;
-            margin: 0 0 18px 0;
+        .auth-mode-wrap {
+            margin: 0 auto 14px auto;
         }
 
-        .auth-section-title h2 {
-            color: #101828 !important;
-            font-size: 30px !important;
-            font-weight: 950 !important;
-            margin-bottom: 8px !important;
-            letter-spacing: -0.6px;
-        }
-
-        .auth-section-title p {
-            color: #667085 !important;
-            font-size: 15px !important;
-            line-height: 1.55;
-            font-weight: 650 !important;
-            margin: 0 !important;
-        }
-
-        .auth-mini-help {
-            margin: 14px 0 0 0;
-            padding: 13px 15px;
-            border-radius: 16px;
-            background: #eff6ff;
-            color: #1e3a8a !important;
-            font-size: 13px !important;
-            font-weight: 750 !important;
-            border: 1px solid #bfdbfe;
-        }
-
-        .auth-form-heading {
-            color: #101828 !important;
-            font-size: 24px !important;
-            line-height: 1.15;
-            font-weight: 950 !important;
-            margin-bottom: 6px;
-            letter-spacing: -0.35px;
-        }
-
-        .auth-form-subheading {
-            color: #667085 !important;
-            font-size: 14px !important;
-            font-weight: 650 !important;
-            line-height: 1.5;
-            margin-bottom: 20px;
-        }
-
-        /* Radio transformé en vrais onglets propres */
         div[role="radiogroup"] {
+            width: 100% !important;
             display: grid !important;
             grid-template-columns: 1fr 1fr !important;
-            gap: 10px !important;
-            background: #f1f5f9 !important;
-            padding: 7px !important;
-            border-radius: 18px !important;
+            gap: 8px !important;
+            padding: 6px !important;
+            border-radius: 16px !important;
+            background: #ffffff !important;
             border: 1px solid #e2e8f0 !important;
-            margin-bottom: 18px !important;
+            box-shadow: 0 12px 28px rgba(15, 23, 42, 0.06) !important;
         }
 
         div[role="radiogroup"] label {
+            width: 100% !important;
             margin: 0 !important;
-            padding: 11px 12px !important;
-            border-radius: 14px !important;
-            background: transparent !important;
-            border: 1px solid transparent !important;
-            justify-content: center !important;
-            transition: all .18s ease !important;
+            padding: 0 !important;
         }
 
-        div[role="radiogroup"] label:has(input:checked) {
-            background: #ffffff !important;
-            border-color: #dbeafe !important;
-            box-shadow: 0 10px 24px rgba(15, 23, 42, 0.08) !important;
+        div[role="radiogroup"] label > div:first-child {
+            display: none !important;
         }
 
+        div[role="radiogroup"] label > div:last-child,
         div[role="radiogroup"] label p {
+            width: 100% !important;
+            text-align: center !important;
+            border-radius: 12px !important;
+            padding: 10px 8px !important;
             color: #475569 !important;
-            font-size: 15px !important;
+            font-size: 14px !important;
             font-weight: 900 !important;
+            transition: all .15s ease !important;
         }
 
+        div[role="radiogroup"] label:has(input:checked) > div:last-child,
         div[role="radiogroup"] label:has(input:checked) p {
-            color: #1e3a8a !important;
+            background: linear-gradient(135deg, #1e3a8a, #0f766e) !important;
+            color: #ffffff !important;
+            box-shadow: 0 12px 22px rgba(30, 58, 138, 0.18) !important;
         }
 
         div[data-testid="stForm"] {
             background: #ffffff !important;
             border: 1px solid #e3e7ee !important;
-            border-radius: 26px !important;
-            padding: 30px 32px !important;
-            box-shadow: 0 18px 54px rgba(15, 23, 42, 0.10) !important;
+            border-radius: 18px !important;
+            padding: 28px 28px 26px 28px !important;
+            box-shadow: 0 18px 44px rgba(15, 23, 42, 0.10) !important;
+            max-width: 100% !important;
+        }
+
+        .auth-form-heading {
+            color: #101828 !important;
+            font-size: 22px !important;
+            line-height: 1.15;
+            font-weight: 950 !important;
+            margin: 18px 0 6px 0;
+            letter-spacing: -0.3px;
+            text-align: left;
+        }
+
+        .auth-form-subheading {
+            color: #667085 !important;
+            font-size: 13px !important;
+            line-height: 1.5;
+            font-weight: 650 !important;
+            margin-bottom: 18px;
+            text-align: left;
         }
 
         div[data-testid="stTextInput"] label,
@@ -2048,28 +1965,29 @@ def page_connexion():
             color: #101828 !important;
             opacity: 1 !important;
             visibility: visible !important;
-            font-size: 14px !important;
+            font-size: 13px !important;
             font-weight: 900 !important;
             margin-bottom: 7px !important;
         }
 
         div[data-testid="stTextInput"] input,
         div[data-baseweb="input"] input {
-            background: #ffffff !important;
+            background: #eef4ff !important;
             color: #101828 !important;
-            border: 1.5px solid #cbd5e1 !important;
-            border-radius: 15px !important;
-            min-height: 51px !important;
-            font-size: 15px !important;
+            border: 1.5px solid #dbe4f0 !important;
+            border-radius: 9px !important;
+            min-height: 46px !important;
+            font-size: 14px !important;
             font-weight: 700 !important;
-            padding: 12px 15px !important;
+            padding: 11px 13px !important;
             box-shadow: none !important;
         }
 
         div[data-testid="stTextInput"] input:focus,
         div[data-baseweb="input"] input:focus {
-            border-color: #1e3a8a !important;
-            box-shadow: 0 0 0 4px rgba(30, 58, 138, 0.12) !important;
+            background: #ffffff !important;
+            border-color: #0f766e !important;
+            box-shadow: 0 0 0 4px rgba(15, 118, 110, 0.10) !important;
         }
 
         div[data-testid="stTextInput"] input::placeholder {
@@ -2077,135 +1995,117 @@ def page_connexion():
             opacity: 1 !important;
         }
 
-        div[data-testid="stForm"] .stFormSubmitButton button {
-            width: 100% !important;
-            background: linear-gradient(135deg, #1e3a8a, #0f766e) !important;
-            color: white !important;
-            border: none !important;
-            border-radius: 15px !important;
-            min-height: 50px !important;
-            padding: 12px 24px !important;
-            font-size: 15px !important;
-            font-weight: 950 !important;
-            box-shadow: 0 14px 30px rgba(30, 58, 138, 0.20) !important;
-            transition: all .18s ease !important;
-        }
-
-        div[data-testid="stForm"] .stFormSubmitButton button:hover {
-            transform: translateY(-1px) !important;
-            box-shadow: 0 18px 34px rgba(15, 118, 110, 0.26) !important;
-        }
-
         div[data-testid="stTextInput"] button {
-            border-radius: 0 15px 15px 0 !important;
+            border-radius: 0 9px 9px 0 !important;
             background: #252733 !important;
             color: white !important;
         }
 
+        div[data-testid="stForm"] .stFormSubmitButton button {
+            width: 100% !important;
+            background: linear-gradient(135deg, #16a34a, #0f766e) !important;
+            color: white !important;
+            border: none !important;
+            border-radius: 9px !important;
+            min-height: 47px !important;
+            padding: 11px 18px !important;
+            font-size: 14px !important;
+            font-weight: 950 !important;
+            box-shadow: 0 14px 30px rgba(22, 163, 74, 0.22) !important;
+            transition: all .18s ease !important;
+            margin-top: 6px !important;
+        }
+
+        div[data-testid="stForm"] .stFormSubmitButton button:hover {
+            transform: translateY(-1px) !important;
+            box-shadow: 0 18px 36px rgba(15, 118, 110, 0.27) !important;
+        }
+
+        .auth-simple-bottom-link {
+            margin-top: 14px;
+            text-align: center;
+            color: #667085 !important;
+            font-size: 13px !important;
+            font-weight: 650 !important;
+        }
+
+        .auth-simple-bottom-link span {
+            color: #16a34a !important;
+            font-size: inherit !important;
+            font-weight: 900 !important;
+        }
+
+        .auth-simple-footer {
+            text-align: center;
+            margin-top: 28px;
+            color: #94a3b8 !important;
+            font-size: 11px !important;
+            font-weight: 900 !important;
+            letter-spacing: 0.08em;
+        }
+
+        .auth-simple-footer span {
+            color: #16a34a !important;
+            font-size: inherit !important;
+            font-weight: 950 !important;
+        }
+
+        .auth-simple-footer b {
+            color: #ef4444 !important;
+            font-size: inherit !important;
+        }
+
         div[data-testid="stAlert"] {
-            border-radius: 16px !important;
+            border-radius: 13px !important;
             font-weight: 750 !important;
         }
 
-        @media (max-width: 900px) {
+        @media (max-width: 768px) {
             .block-container {
-                padding-left: 14px !important;
-                padding-right: 14px !important;
-                padding-top: 12px !important;
-                padding-bottom: 90px !important;
-            }
-
-            .auth-modern-hero {
-                min-height: auto !important;
-                border-radius: 26px !important;
-                padding: 24px 20px 22px 20px !important;
-                box-shadow: 0 18px 44px rgba(15, 23, 42, 0.16) !important;
-            }
-
-            .auth-modern-top {
-                justify-content: center !important;
-                flex-direction: column !important;
-                gap: 12px !important;
-            }
-
-            .auth-modern-logo {
-                width: 72px !important;
-                height: 72px !important;
-                border-radius: 22px !important;
-                font-size: 23px !important;
-            }
-
-            .auth-modern-badge {
-                font-size: 12px !important;
-                padding: 8px 12px !important;
-            }
-
-            .auth-modern-title {
-                text-align: center !important;
-                margin-top: 18px !important;
-                font-size: 34px !important;
-                letter-spacing: -0.7px !important;
-            }
-
-            .auth-modern-subtitle {
-                text-align: center !important;
-                font-size: 14px !important;
-                line-height: 1.55 !important;
-                margin-left: auto !important;
-                margin-right: auto !important;
-            }
-
-            .auth-modern-benefits {
-                justify-content: center !important;
-                gap: 8px !important;
-                margin-top: 18px !important;
-            }
-
-            .auth-modern-benefit {
-                padding: 9px 11px !important;
-                border-radius: 15px !important;
-                font-size: 12px !important;
-            }
-
-            .auth-modern-benefit i {
-                font-size: 15px !important;
-            }
-
-            .auth-trust-card {
-                margin-top: 18px !important;
-                padding: 15px !important;
-            }
-
-            .auth-section-title {
-                text-align: center !important;
-                margin-top: 10px !important;
-            }
-
-            .auth-section-title h2 {
-                font-size: 23px !important;
-            }
-
-            .auth-section-title p {
-                font-size: 14px !important;
+                max-width: 100% !important;
+                padding-top: 0.7rem !important;
+                padding-left: 0.85rem !important;
+                padding-right: 0.85rem !important;
+                padding-bottom: 5rem !important;
             }
 
             div[data-testid="stForm"] {
-                padding: 22px 18px !important;
-                border-radius: 22px !important;
+                padding: 22px 18px 21px 18px !important;
+                border-radius: 16px !important;
+            }
+
+            .auth-simple-logo {
+                width: 72px !important;
+                height: 72px !important;
+                border-radius: 17px !important;
+                font-size: 23px !important;
+            }
+
+            .auth-simple-title {
+                font-size: 27px !important;
+            }
+
+            .auth-simple-subtitle {
+                font-size: 13px !important;
+            }
+
+            .auth-simple-pill {
+                font-size: 11px !important;
+                padding: 6px 9px !important;
             }
 
             .auth-form-heading {
-                font-size: 21px !important;
+                font-size: 20px !important;
             }
         }
 
         @media (max-width: 420px) {
-            .auth-modern-title {
-                font-size: 30px !important;
+            .auth-simple-pills {
+                gap: 6px !important;
             }
 
-            .auth-modern-benefit {
-                width: 100% !important;
+            .auth-simple-pill {
+                flex: 1 1 auto !important;
                 justify-content: center !important;
             }
         }
@@ -2218,162 +2118,159 @@ def page_connexion():
     if "login_email" not in st.session_state:
         st.session_state["login_email"] = ""
 
-    # Important : Streamlit interdit de modifier directement la valeur
-    # d'un widget après sa création. On applique donc le changement AVANT
-    # d'afficher le bouton Connexion / Inscription.
+    # Important : appliquer le changement avant de créer le widget radio.
     if "auth_mode_a_appliquer" in st.session_state:
         st.session_state["auth_mode"] = st.session_state.pop("auth_mode_a_appliquer")
 
-    col_brand, col_auth = st.columns([1.05, 0.95], gap="large")
+    md("""
+    <div class="auth-simple-top">
+        <div class="auth-simple-mini-badge"><i class="bi bi-shield-lock"></i> Espace personnel sécurisé</div>
+    </div>
+    """)
 
-    with col_brand:
-        md("""
-        <div class="auth-modern-shell">
-            <div class="auth-modern-hero">
-                <div class="auth-modern-top">
-                    <div class="auth-modern-logo">JB</div>
-                    <div class="auth-modern-badge"><i class="bi bi-shield-lock"></i> Espace personnel sécurisé</div>
-                </div>
-                <div class="auth-modern-title">JordyBusiness</div>
-                <div class="auth-modern-subtitle">
-                    Organisez vos tâches, suivez votre budget et gardez vos paiements programmés au même endroit.
-                </div>
-                <div class="auth-modern-benefits">
-                    <div class="auth-modern-benefit"><i class="bi bi-check2-circle"></i> Tâches claires</div>
-                    <div class="auth-modern-benefit"><i class="bi bi-wallet2"></i> Budget maîtrisé</div>
-                    <div class="auth-modern-benefit"><i class="bi bi-bell"></i> Alertes utiles</div>
-                </div>
-                <div class="auth-trust-card">
-                    <div class="auth-trust-title">Votre espace de pilotage quotidien</div>
-                    <div class="auth-trust-text">
-                        Centralisez vos priorités, vos dépenses et vos rappels dans une interface claire, rapide et adaptée au téléphone.
-                    </div>
+    mode = st.radio(
+        "Choisissez une action",
+        ["Connexion", "Inscription"],
+        horizontal=True,
+        label_visibility="collapsed",
+        key="auth_mode"
+    )
+
+    notice = st.session_state.pop("auth_notice", None)
+    if notice:
+        st.success(notice)
+
+    if mode == "Connexion":
+        with st.form("connexion"):
+            st.markdown("""
+            <div class="auth-simple-card-head">
+                <div class="auth-simple-logo">JB</div>
+                <div class="auth-simple-title"><span>Jordy</span>Business</div>
+                <div class="auth-simple-subtitle">Votre espace pour gérer tâches, budget et paiements.</div>
+                <div class="auth-simple-pills">
+                    <div class="auth-simple-pill"><i class="bi bi-check2-circle"></i> Tâches</div>
+                    <div class="auth-simple-pill"><i class="bi bi-wallet2"></i> Budget</div>
+                    <div class="auth-simple-pill"><i class="bi bi-bell"></i> Alertes</div>
                 </div>
             </div>
+            <div class='auth-form-heading'>Se connecter</div>
+            <div class='auth-form-subheading'>Entrez votre email et votre mot de passe.</div>
+            """, unsafe_allow_html=True)
+
+            email = st.text_input(
+                "Adresse email",
+                placeholder="exemple@email.com",
+                key="login_email"
+            )
+
+            mot_de_passe = st.text_input(
+                "Mot de passe",
+                type="password",
+                placeholder="Votre mot de passe",
+                key="login_password"
+            )
+
+            bouton = st.form_submit_button("Se connecter")
+
+            if bouton:
+                if email.strip() == "" or mot_de_passe.strip() == "":
+                    st.error("Veuillez remplir tous les champs.")
+                else:
+                    utilisateur = connecter_utilisateur(email.strip(), mot_de_passe)
+
+                    if utilisateur:
+                        st.session_state["connecte"] = True
+                        st.session_state["utilisateur"] = utilisateur
+                        st.session_state.pop("automatisations_lancees", None)
+                        st.rerun()
+                    else:
+                        st.error("Email ou mot de passe incorrect.")
+
+        md("""
+        <div class="auth-simple-bottom-link">
+            Pas encore de compte ? Cliquez sur <span>Inscription</span>.
         </div>
         """)
 
-    with col_auth:
+    else:
+        with st.form("inscription"):
+            st.markdown("""
+            <div class="auth-simple-card-head">
+                <div class="auth-simple-logo">JB</div>
+                <div class="auth-simple-title"><span>Jordy</span>Business</div>
+                <div class="auth-simple-subtitle">Créez votre espace personnel en quelques secondes.</div>
+                <div class="auth-simple-pills">
+                    <div class="auth-simple-pill"><i class="bi bi-shield-check"></i> Sécurisé</div>
+                    <div class="auth-simple-pill"><i class="bi bi-phone"></i> Mobile</div>
+                    <div class="auth-simple-pill"><i class="bi bi-graph-up"></i> Suivi</div>
+                </div>
+            </div>
+            <div class='auth-form-heading'>Créer un compte</div>
+            <div class='auth-form-subheading'>Après la création, vous serez ramené automatiquement vers Connexion.</div>
+            """, unsafe_allow_html=True)
+
+            nom = st.text_input(
+                "Nom complet",
+                placeholder="Votre nom complet",
+                key="register_name"
+            )
+
+            email = st.text_input(
+                "Adresse email",
+                placeholder="exemple@email.com",
+                key="register_email"
+            )
+
+            mot_de_passe = st.text_input(
+                "Mot de passe",
+                type="password",
+                placeholder="Minimum 6 caractères",
+                key="register_password"
+            )
+
+            confirmation = st.text_input(
+                "Confirmer le mot de passe",
+                type="password",
+                placeholder="Répétez le mot de passe",
+                key="register_password_confirm"
+            )
+
+            bouton = st.form_submit_button("Créer mon compte")
+
+            if bouton:
+                email_propre = email.strip().lower()
+                nom_propre = nom.strip()
+
+                if nom_propre == "" or email_propre == "" or mot_de_passe.strip() == "":
+                    st.error("Le nom, l’email et le mot de passe sont obligatoires.")
+                elif "@" not in email_propre or "." not in email_propre:
+                    st.error("Veuillez entrer une adresse email valide.")
+                elif mot_de_passe != confirmation:
+                    st.error("Les mots de passe ne correspondent pas.")
+                elif len(mot_de_passe) < 6:
+                    st.error("Le mot de passe doit contenir au moins 6 caractères.")
+                else:
+                    succes, message = creer_utilisateur(nom_propre, email_propre, mot_de_passe)
+
+                    if succes:
+                        st.session_state["auth_mode_a_appliquer"] = "Connexion"
+                        st.session_state["login_email"] = email_propre
+                        st.session_state["auth_notice"] = "Compte créé avec succès. Connectez-vous maintenant avec votre mot de passe."
+                        st.rerun()
+                    else:
+                        st.error(message)
+
         md("""
-        <div class="auth-section-title">
-            <h2>Bienvenue</h2>
-            <p>Connectez-vous ou créez votre compte pour accéder à votre espace.</p>
+        <div class="auth-simple-bottom-link">
+            Déjà inscrit ? Cliquez sur <span>Connexion</span>.
         </div>
         """)
 
-        mode = st.radio(
-            "Choisissez une action",
-            ["Connexion", "Inscription"],
-            horizontal=True,
-            label_visibility="collapsed",
-            key="auth_mode"
-        )
-
-        notice = st.session_state.pop("auth_notice", None)
-        if notice:
-            st.success(notice)
-
-        if mode == "Connexion":
-            with st.form("connexion"):
-                st.markdown("<div class='auth-form-heading'>Se connecter</div>", unsafe_allow_html=True)
-                st.markdown(
-                    "<div class='auth-form-subheading'>Entrez votre email et votre mot de passe.</div>",
-                    unsafe_allow_html=True
-                )
-
-                email = st.text_input(
-                    "Adresse email",
-                    placeholder="exemple@email.com",
-                    key="login_email"
-                )
-
-                mot_de_passe = st.text_input(
-                    "Mot de passe",
-                    type="password",
-                    placeholder="Votre mot de passe",
-                    key="login_password"
-                )
-
-                bouton = st.form_submit_button("Connexion")
-
-                if bouton:
-                    if email.strip() == "" or mot_de_passe.strip() == "":
-                        st.error("Veuillez remplir tous les champs.")
-                    else:
-                        utilisateur = connecter_utilisateur(email.strip(), mot_de_passe)
-
-                        if utilisateur:
-                            st.session_state["connecte"] = True
-                            st.session_state["utilisateur"] = utilisateur
-                            st.session_state.pop("automatisations_lancees", None)
-                            st.rerun()
-                        else:
-                            st.error("Email ou mot de passe incorrect.")
-
-            md("""
-            <div class="auth-mini-help">
-                Nouveau sur JordyBusiness ? Cliquez sur Inscription pour créer votre espace.
-            </div>
-            """)
-
-        else:
-            with st.form("inscription"):
-                st.markdown("<div class='auth-form-heading'>Créer un compte</div>", unsafe_allow_html=True)
-                st.markdown(
-                    "<div class='auth-form-subheading'>Après la création, vous serez automatiquement ramené vers Connexion.</div>",
-                    unsafe_allow_html=True
-                )
-
-                nom = st.text_input(
-                    "Nom complet",
-                    placeholder="Votre nom complet",
-                    key="register_name"
-                )
-
-                email = st.text_input(
-                    "Adresse email",
-                    placeholder="exemple@email.com",
-                    key="register_email"
-                )
-
-                mot_de_passe = st.text_input(
-                    "Mot de passe",
-                    type="password",
-                    placeholder="Minimum 6 caractères",
-                    key="register_password"
-                )
-
-                confirmation = st.text_input(
-                    "Confirmer le mot de passe",
-                    type="password",
-                    placeholder="Répétez le mot de passe",
-                    key="register_password_confirm"
-                )
-
-                bouton = st.form_submit_button("Créer mon compte")
-
-                if bouton:
-                    email_propre = email.strip().lower()
-                    nom_propre = nom.strip()
-
-                    if nom_propre == "" or email_propre == "" or mot_de_passe.strip() == "":
-                        st.error("Le nom, l’email et le mot de passe sont obligatoires.")
-                    elif "@" not in email_propre or "." not in email_propre:
-                        st.error("Veuillez entrer une adresse email valide.")
-                    elif mot_de_passe != confirmation:
-                        st.error("Les mots de passe ne correspondent pas.")
-                    elif len(mot_de_passe) < 6:
-                        st.error("Le mot de passe doit contenir au moins 6 caractères.")
-                    else:
-                        succes, message = creer_utilisateur(nom_propre, email_propre, mot_de_passe)
-
-                        if succes:
-                            st.session_state["auth_mode_a_appliquer"] = "Connexion"
-                            st.session_state["login_email"] = email_propre
-                            st.session_state["auth_notice"] = "Compte créé avec succès. Connectez-vous maintenant avec votre mot de passe."
-                            st.rerun()
-                        else:
-                            st.error(message)
+    md("""
+    <div class="auth-simple-footer">
+        DEVELOPED WITH <b>♥</b> BY <span>JORDY BALOU</span>
+    </div>
+    """)
 
 def page_tableau_de_bord():
     utilisateur = st.session_state["utilisateur"]
