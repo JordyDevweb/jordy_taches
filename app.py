@@ -30,6 +30,7 @@ CATEGORIES_TACHES = [
     "Santé",
     "Courses",
     "Personnel",
+    "Assurance"
     "Autre"
 ]
 
@@ -1769,7 +1770,8 @@ def afficher_taches_liste(taches):
 
 
 def page_connexion():
-    # Page d'accueil / authentification améliorée pour PC et téléphone
+    # Page d'accueil / authentification premium
+    # Objectif : plus professionnelle sur PC, sans casser tablette/téléphone.
     md("""
     <style>
         header[data-testid="stHeader"],
@@ -1784,38 +1786,55 @@ def page_connexion():
         }
 
         .block-container {
-            padding-top: 1.25rem !important;
+            max-width: 1180px !important;
+            padding-top: 2.2rem !important;
             padding-bottom: 4rem !important;
+            padding-left: 1.4rem !important;
+            padding-right: 1.4rem !important;
         }
 
         .auth-modern-shell {
-            max-width: 1040px;
-            margin: 0 auto 26px auto;
-            padding: 0 8px;
+            width: 100%;
+            margin: 0;
+            padding: 0;
         }
 
         .auth-modern-hero {
             position: relative;
             overflow: hidden;
+            min-height: 560px;
             border-radius: 34px;
-            padding: 34px 34px 30px 34px;
+            padding: 38px 38px 34px 38px;
             background:
-                radial-gradient(circle at 18% 15%, rgba(59, 130, 246, 0.24), transparent 34%),
-                radial-gradient(circle at 90% 20%, rgba(16, 185, 129, 0.24), transparent 34%),
+                radial-gradient(circle at 16% 12%, rgba(59, 130, 246, 0.25), transparent 33%),
+                radial-gradient(circle at 88% 22%, rgba(20, 184, 166, 0.25), transparent 35%),
                 linear-gradient(135deg, #082f49 0%, #064e3b 100%);
             color: white;
-            box-shadow: 0 28px 70px rgba(15, 23, 42, 0.20);
+            box-shadow: 0 28px 76px rgba(15, 23, 42, 0.22);
             border: 1px solid rgba(255, 255, 255, 0.16);
+        }
+
+        .auth-modern-hero::before {
+            content: "";
+            position: absolute;
+            right: -110px;
+            bottom: -140px;
+            width: 310px;
+            height: 310px;
+            border-radius: 999px;
+            background: rgba(255, 255, 255, 0.08);
         }
 
         .auth-modern-hero::after {
             content: "";
             position: absolute;
-            inset: auto -70px -130px auto;
-            width: 270px;
-            height: 270px;
-            border-radius: 999px;
-            background: rgba(255, 255, 255, 0.08);
+            right: 42px;
+            top: 42px;
+            width: 88px;
+            height: 88px;
+            border-radius: 28px;
+            background: rgba(255, 255, 255, 0.07);
+            border: 1px solid rgba(255, 255, 255, 0.10);
         }
 
         .auth-modern-top {
@@ -1828,8 +1847,8 @@ def page_connexion():
         }
 
         .auth-modern-logo {
-            width: 78px;
-            height: 78px;
+            width: 76px;
+            height: 76px;
             border-radius: 24px;
             display: flex;
             align-items: center;
@@ -1845,21 +1864,22 @@ def page_connexion():
         .auth-modern-badge {
             padding: 10px 14px;
             border-radius: 999px;
-            color: rgba(255, 255, 255, 0.92) !important;
+            color: rgba(255, 255, 255, 0.94) !important;
             background: rgba(255, 255, 255, 0.13);
             border: 1px solid rgba(255, 255, 255, 0.18);
             font-size: 13px !important;
             font-weight: 850 !important;
             backdrop-filter: blur(10px);
+            white-space: nowrap;
         }
 
         .auth-modern-title {
             position: relative;
             z-index: 1;
-            margin-top: 24px;
-            font-size: 44px !important;
+            margin-top: 42px;
+            font-size: 47px !important;
             line-height: 1.02;
-            letter-spacing: -1.2px;
+            letter-spacing: -1.35px;
             font-weight: 950 !important;
             color: #ffffff !important;
         }
@@ -1867,11 +1887,11 @@ def page_connexion():
         .auth-modern-subtitle {
             position: relative;
             z-index: 1;
-            margin-top: 12px;
-            max-width: 690px;
-            color: rgba(255, 255, 255, 0.82) !important;
+            margin-top: 16px;
+            max-width: 560px;
+            color: rgba(255, 255, 255, 0.84) !important;
             font-size: 17px !important;
-            line-height: 1.65;
+            line-height: 1.72;
             font-weight: 650 !important;
         }
 
@@ -1881,7 +1901,7 @@ def page_connexion():
             display: flex;
             flex-wrap: wrap;
             gap: 12px;
-            margin-top: 24px;
+            margin-top: 28px;
         }
 
         .auth-modern-benefit {
@@ -1903,21 +1923,42 @@ def page_connexion():
             color: #ffffff !important;
         }
 
-        .auth-panel {
-            max-width: 560px;
-            margin: 0 auto;
+        .auth-trust-card {
+            position: relative;
+            z-index: 1;
+            margin-top: 74px;
+            padding: 18px;
+            border-radius: 24px;
+            background: rgba(255, 255, 255, 0.105);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(14px);
+        }
+
+        .auth-trust-title {
+            color: #ffffff !important;
+            font-size: 16px !important;
+            font-weight: 950 !important;
+            margin-bottom: 6px;
+        }
+
+        .auth-trust-text {
+            color: rgba(255, 255, 255, 0.76) !important;
+            font-size: 13px !important;
+            line-height: 1.55;
+            font-weight: 650 !important;
         }
 
         .auth-section-title {
-            text-align: center;
-            margin: 0 auto 18px auto;
+            text-align: left;
+            margin: 0 0 18px 0;
         }
 
         .auth-section-title h2 {
             color: #101828 !important;
-            font-size: 27px !important;
+            font-size: 30px !important;
             font-weight: 950 !important;
             margin-bottom: 8px !important;
+            letter-spacing: -0.6px;
         }
 
         .auth-section-title p {
@@ -1941,10 +1982,11 @@ def page_connexion():
 
         .auth-form-heading {
             color: #101828 !important;
-            font-size: 23px !important;
+            font-size: 24px !important;
             line-height: 1.15;
             font-weight: 950 !important;
             margin-bottom: 6px;
+            letter-spacing: -0.35px;
         }
 
         .auth-form-subheading {
@@ -1997,8 +2039,8 @@ def page_connexion():
             background: #ffffff !important;
             border: 1px solid #e3e7ee !important;
             border-radius: 26px !important;
-            padding: 28px 30px !important;
-            box-shadow: 0 18px 48px rgba(15, 23, 42, 0.09) !important;
+            padding: 30px 32px !important;
+            box-shadow: 0 18px 54px rgba(15, 23, 42, 0.10) !important;
         }
 
         div[data-testid="stTextInput"] label,
@@ -2065,7 +2107,7 @@ def page_connexion():
             font-weight: 750 !important;
         }
 
-        @media (max-width: 768px) {
+        @media (max-width: 900px) {
             .block-container {
                 padding-left: 14px !important;
                 padding-right: 14px !important;
@@ -2073,12 +2115,8 @@ def page_connexion():
                 padding-bottom: 90px !important;
             }
 
-            .auth-modern-shell {
-                margin-bottom: 20px !important;
-                padding: 0 !important;
-            }
-
             .auth-modern-hero {
+                min-height: auto !important;
                 border-radius: 26px !important;
                 padding: 24px 20px 22px 20px !important;
                 box-shadow: 0 18px 44px rgba(15, 23, 42, 0.16) !important;
@@ -2133,6 +2171,16 @@ def page_connexion():
                 font-size: 15px !important;
             }
 
+            .auth-trust-card {
+                margin-top: 18px !important;
+                padding: 15px !important;
+            }
+
+            .auth-section-title {
+                text-align: center !important;
+                margin-top: 10px !important;
+            }
+
             .auth-section-title h2 {
                 font-size: 23px !important;
             }
@@ -2170,156 +2218,162 @@ def page_connexion():
     if "login_email" not in st.session_state:
         st.session_state["login_email"] = ""
 
-    md("""
-    <div class="auth-modern-shell">
-        <div class="auth-modern-hero">
-            <div class="auth-modern-top">
-                <div class="auth-modern-logo">JB</div>
-                <div class="auth-modern-badge"><i class="bi bi-shield-lock"></i> Espace personnel sécurisé</div>
-            </div>
-            <div class="auth-modern-title">JordyBusiness</div>
-            <div class="auth-modern-subtitle">
-                Organisez vos tâches, suivez votre budget et gardez vos paiements programmés au même endroit.
-            </div>
-            <div class="auth-modern-benefits">
-                <div class="auth-modern-benefit"><i class="bi bi-check2-circle"></i> Tâches claires</div>
-                <div class="auth-modern-benefit"><i class="bi bi-wallet2"></i> Budget maîtrisé</div>
-                <div class="auth-modern-benefit"><i class="bi bi-bell"></i> Alertes utiles</div>
-            </div>
-        </div>
-    </div>
-    """)
-
-    st.markdown("<div class='auth-panel'>", unsafe_allow_html=True)
-
-    md("""
-    <div class="auth-section-title">
-        <h2>Bienvenue</h2>
-        <p>Connectez-vous ou créez votre compte pour accéder à votre espace.</p>
-    </div>
-    """)
-
     # Important : Streamlit interdit de modifier directement la valeur
     # d'un widget après sa création. On applique donc le changement AVANT
     # d'afficher le bouton Connexion / Inscription.
     if "auth_mode_a_appliquer" in st.session_state:
         st.session_state["auth_mode"] = st.session_state.pop("auth_mode_a_appliquer")
 
-    mode = st.radio(
-        "Choisissez une action",
-        ["Connexion", "Inscription"],
-        horizontal=True,
-        label_visibility="collapsed",
-        key="auth_mode"
-    )
+    col_brand, col_auth = st.columns([1.05, 0.95], gap="large")
 
-    notice = st.session_state.pop("auth_notice", None)
-    if notice:
-        st.success(notice)
-
-    if mode == "Connexion":
-        with st.form("connexion"):
-            st.markdown("<div class='auth-form-heading'>Se connecter</div>", unsafe_allow_html=True)
-            st.markdown(
-                "<div class='auth-form-subheading'>Entrez votre email et votre mot de passe.</div>",
-                unsafe_allow_html=True
-            )
-
-            email = st.text_input(
-                "Adresse email",
-                placeholder="exemple@email.com",
-                key="login_email"
-            )
-
-            mot_de_passe = st.text_input(
-                "Mot de passe",
-                type="password",
-                placeholder="Votre mot de passe",
-                key="login_password"
-            )
-
-            bouton = st.form_submit_button("Connexion")
-
-            if bouton:
-                if email.strip() == "" or mot_de_passe.strip() == "":
-                    st.error("Veuillez remplir tous les champs.")
-                else:
-                    utilisateur = connecter_utilisateur(email.strip(), mot_de_passe)
-
-                    if utilisateur:
-                        st.session_state["connecte"] = True
-                        st.session_state["utilisateur"] = utilisateur
-                        st.session_state.pop("automatisations_lancees", None)
-                        st.rerun()
-                    else:
-                        st.error("Email ou mot de passe incorrect.")
-
+    with col_brand:
         md("""
-        <div class="auth-mini-help">
-            Nouveau sur JordyBusiness ? Cliquez sur Inscription pour créer votre espace.
+        <div class="auth-modern-shell">
+            <div class="auth-modern-hero">
+                <div class="auth-modern-top">
+                    <div class="auth-modern-logo">JB</div>
+                    <div class="auth-modern-badge"><i class="bi bi-shield-lock"></i> Espace personnel sécurisé</div>
+                </div>
+                <div class="auth-modern-title">JordyBusiness</div>
+                <div class="auth-modern-subtitle">
+                    Organisez vos tâches, suivez votre budget et gardez vos paiements programmés au même endroit.
+                </div>
+                <div class="auth-modern-benefits">
+                    <div class="auth-modern-benefit"><i class="bi bi-check2-circle"></i> Tâches claires</div>
+                    <div class="auth-modern-benefit"><i class="bi bi-wallet2"></i> Budget maîtrisé</div>
+                    <div class="auth-modern-benefit"><i class="bi bi-bell"></i> Alertes utiles</div>
+                </div>
+                <div class="auth-trust-card">
+                    <div class="auth-trust-title">Votre espace de pilotage quotidien</div>
+                    <div class="auth-trust-text">
+                        Centralisez vos priorités, vos dépenses et vos rappels dans une interface claire, rapide et adaptée au téléphone.
+                    </div>
+                </div>
+            </div>
         </div>
         """)
 
-    else:
-        with st.form("inscription"):
-            st.markdown("<div class='auth-form-heading'>Créer un compte</div>", unsafe_allow_html=True)
-            st.markdown(
-                "<div class='auth-form-subheading'>Après la création, vous serez automatiquement ramené vers Connexion.</div>",
-                unsafe_allow_html=True
-            )
+    with col_auth:
+        md("""
+        <div class="auth-section-title">
+            <h2>Bienvenue</h2>
+            <p>Connectez-vous ou créez votre compte pour accéder à votre espace.</p>
+        </div>
+        """)
 
-            nom = st.text_input(
-                "Nom complet",
-                placeholder="Votre nom complet",
-                key="register_name"
-            )
+        mode = st.radio(
+            "Choisissez une action",
+            ["Connexion", "Inscription"],
+            horizontal=True,
+            label_visibility="collapsed",
+            key="auth_mode"
+        )
 
-            email = st.text_input(
-                "Adresse email",
-                placeholder="exemple@email.com",
-                key="register_email"
-            )
+        notice = st.session_state.pop("auth_notice", None)
+        if notice:
+            st.success(notice)
 
-            mot_de_passe = st.text_input(
-                "Mot de passe",
-                type="password",
-                placeholder="Minimum 6 caractères",
-                key="register_password"
-            )
+        if mode == "Connexion":
+            with st.form("connexion"):
+                st.markdown("<div class='auth-form-heading'>Se connecter</div>", unsafe_allow_html=True)
+                st.markdown(
+                    "<div class='auth-form-subheading'>Entrez votre email et votre mot de passe.</div>",
+                    unsafe_allow_html=True
+                )
 
-            confirmation = st.text_input(
-                "Confirmer le mot de passe",
-                type="password",
-                placeholder="Répétez le mot de passe",
-                key="register_password_confirm"
-            )
+                email = st.text_input(
+                    "Adresse email",
+                    placeholder="exemple@email.com",
+                    key="login_email"
+                )
 
-            bouton = st.form_submit_button("Créer mon compte")
+                mot_de_passe = st.text_input(
+                    "Mot de passe",
+                    type="password",
+                    placeholder="Votre mot de passe",
+                    key="login_password"
+                )
 
-            if bouton:
-                email_propre = email.strip().lower()
-                nom_propre = nom.strip()
+                bouton = st.form_submit_button("Connexion")
 
-                if nom_propre == "" or email_propre == "" or mot_de_passe.strip() == "":
-                    st.error("Le nom, l’email et le mot de passe sont obligatoires.")
-                elif "@" not in email_propre or "." not in email_propre:
-                    st.error("Veuillez entrer une adresse email valide.")
-                elif mot_de_passe != confirmation:
-                    st.error("Les mots de passe ne correspondent pas.")
-                elif len(mot_de_passe) < 6:
-                    st.error("Le mot de passe doit contenir au moins 6 caractères.")
-                else:
-                    succes, message = creer_utilisateur(nom_propre, email_propre, mot_de_passe)
-
-                    if succes:
-                        st.session_state["auth_mode_a_appliquer"] = "Connexion"
-                        st.session_state["login_email"] = email_propre
-                        st.session_state["auth_notice"] = "Compte créé avec succès. Connectez-vous maintenant avec votre mot de passe."
-                        st.rerun()
+                if bouton:
+                    if email.strip() == "" or mot_de_passe.strip() == "":
+                        st.error("Veuillez remplir tous les champs.")
                     else:
-                        st.error(message)
+                        utilisateur = connecter_utilisateur(email.strip(), mot_de_passe)
 
-    st.markdown("</div>", unsafe_allow_html=True)
+                        if utilisateur:
+                            st.session_state["connecte"] = True
+                            st.session_state["utilisateur"] = utilisateur
+                            st.session_state.pop("automatisations_lancees", None)
+                            st.rerun()
+                        else:
+                            st.error("Email ou mot de passe incorrect.")
+
+            md("""
+            <div class="auth-mini-help">
+                Nouveau sur JordyBusiness ? Cliquez sur Inscription pour créer votre espace.
+            </div>
+            """)
+
+        else:
+            with st.form("inscription"):
+                st.markdown("<div class='auth-form-heading'>Créer un compte</div>", unsafe_allow_html=True)
+                st.markdown(
+                    "<div class='auth-form-subheading'>Après la création, vous serez automatiquement ramené vers Connexion.</div>",
+                    unsafe_allow_html=True
+                )
+
+                nom = st.text_input(
+                    "Nom complet",
+                    placeholder="Votre nom complet",
+                    key="register_name"
+                )
+
+                email = st.text_input(
+                    "Adresse email",
+                    placeholder="exemple@email.com",
+                    key="register_email"
+                )
+
+                mot_de_passe = st.text_input(
+                    "Mot de passe",
+                    type="password",
+                    placeholder="Minimum 6 caractères",
+                    key="register_password"
+                )
+
+                confirmation = st.text_input(
+                    "Confirmer le mot de passe",
+                    type="password",
+                    placeholder="Répétez le mot de passe",
+                    key="register_password_confirm"
+                )
+
+                bouton = st.form_submit_button("Créer mon compte")
+
+                if bouton:
+                    email_propre = email.strip().lower()
+                    nom_propre = nom.strip()
+
+                    if nom_propre == "" or email_propre == "" or mot_de_passe.strip() == "":
+                        st.error("Le nom, l’email et le mot de passe sont obligatoires.")
+                    elif "@" not in email_propre or "." not in email_propre:
+                        st.error("Veuillez entrer une adresse email valide.")
+                    elif mot_de_passe != confirmation:
+                        st.error("Les mots de passe ne correspondent pas.")
+                    elif len(mot_de_passe) < 6:
+                        st.error("Le mot de passe doit contenir au moins 6 caractères.")
+                    else:
+                        succes, message = creer_utilisateur(nom_propre, email_propre, mot_de_passe)
+
+                        if succes:
+                            st.session_state["auth_mode_a_appliquer"] = "Connexion"
+                            st.session_state["login_email"] = email_propre
+                            st.session_state["auth_notice"] = "Compte créé avec succès. Connectez-vous maintenant avec votre mot de passe."
+                            st.rerun()
+                        else:
+                            st.error(message)
 
 def page_tableau_de_bord():
     utilisateur = st.session_state["utilisateur"]
