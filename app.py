@@ -4251,8 +4251,8 @@ CooIo3xTAMb0U8GigBUU6Mb0xBvSpkYNFAwpj3Uu6igR/9k=
 
 
 def page_connexion():
-    # Page connexion / inscription professionnelle style portefeuille électronique.
-    # Deux cadres collés : affiche JordyBusiness à gauche, formulaire à droite.
+    # Page connexion / inscription professionnelle : fond clair, deux panneaux collés,
+    # affiche complète à gauche et formulaire centré à droite.
     md("""
     <style>
         header[data-testid="stHeader"],
@@ -4266,103 +4266,112 @@ def page_connexion():
             height: 0 !important;
         }
 
+        html, body {
+            overflow-x: hidden !important;
+        }
+
         .stApp {
             background:
-                radial-gradient(circle at 12% 18%, rgba(37, 99, 235, 0.30), transparent 32%),
-                radial-gradient(circle at 88% 78%, rgba(14, 165, 233, 0.20), transparent 36%),
-                linear-gradient(135deg, #020617 0%, #06142b 48%, #020617 100%) !important;
+                radial-gradient(circle at 15% 12%, rgba(59, 130, 246, 0.12), transparent 30%),
+                radial-gradient(circle at 92% 88%, rgba(14, 165, 233, 0.12), transparent 34%),
+                linear-gradient(180deg, #ffffff 0%, #f3f7fb 100%) !important;
             color: #0f172a !important;
         }
 
         .block-container {
-            max-width: 1380px !important;
-            padding-top: 1.4rem !important;
-            padding-left: 1.1rem !important;
-            padding-right: 1.1rem !important;
-            padding-bottom: 1.4rem !important;
+            max-width: 1240px !important;
+            padding-top: clamp(18px, 3vh, 34px) !important;
+            padding-left: clamp(12px, 2vw, 24px) !important;
+            padding-right: clamp(12px, 2vw, 24px) !important;
+            padding-bottom: clamp(18px, 3vh, 34px) !important;
         }
 
+        /* Le bloc global : deux cadres collés, centrés, sans espace vide. */
         div[data-testid="stHorizontalBlock"]:has(.jb-auth-poster-wrap) {
             gap: 0 !important;
             align-items: stretch !important;
+            justify-content: center !important;
+            min-height: calc(100vh - 70px) !important;
+            width: 100% !important;
+            filter: drop-shadow(0 26px 65px rgba(15, 23, 42, 0.14));
         }
 
-        div[data-testid="stHorizontalBlock"]:has(.jb-auth-poster-wrap) > div[data-testid="column"] {
+        div[data-testid="stHorizontalBlock"]:has(.jb-auth-poster-wrap) > div[data-testid="column"],
+        div[data-testid="stHorizontalBlock"]:has(.jb-auth-poster-wrap) > div {
             padding-left: 0 !important;
             padding-right: 0 !important;
         }
 
+        /* Panneau gauche : affiche portefeuille électronique. */
         .jb-auth-poster-wrap {
-            height: calc(100vh - 44px);
-            min-height: 760px;
-            max-height: 930px;
+            height: min(720px, calc(100vh - 76px));
+            min-height: 620px;
+            width: 100%;
             overflow: hidden;
-            border-radius: 34px 0 0 34px;
-            background: #020617;
-            box-shadow: 0 34px 95px rgba(2, 6, 23, 0.42);
-            border: 1px solid rgba(148, 163, 184, 0.24);
+            border-radius: 32px 0 0 32px;
+            background: linear-gradient(135deg, #020617 0%, #061a3d 100%);
+            border: 1px solid rgba(226, 232, 240, 0.65);
             border-right: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .jb-auth-poster-wrap img {
             width: 100%;
             height: 100%;
             display: block;
-            object-fit: cover;
-            object-position: center center;
+            object-fit: cover !important;
+            object-position: center center !important;
         }
 
-        div[data-testid="column"]:has(.jb-auth-right-start) {
-            min-height: 760px !important;
-            height: calc(100vh - 44px);
-            max-height: 930px;
+        /* Panneau droit : vrai cadre blanc professionnel. */
+        div[data-testid="stHorizontalBlock"]:has(.jb-auth-poster-wrap) > div[data-testid="column"]:nth-child(2),
+        div[data-testid="stHorizontalBlock"]:has(.jb-auth-poster-wrap) > div:nth-child(2),
+        div[data-testid="column"]:has(.jb-auth-right-marker) {
+            height: min(720px, calc(100vh - 76px)) !important;
+            min-height: 620px !important;
             background: #ffffff !important;
-            border-radius: 0 34px 34px 0 !important;
+            border-radius: 0 32px 32px 0 !important;
             border: 1px solid rgba(226, 232, 240, 0.95) !important;
             border-left: none !important;
-            padding: 62px 56px 38px 56px !important;
-            box-shadow: 0 34px 95px rgba(2, 6, 23, 0.25);
+            padding: 0 !important;
             display: flex !important;
             flex-direction: column !important;
             justify-content: center !important;
         }
 
-        .jb-auth-right-start {
-            height: 0;
-            margin: 0;
-            padding: 0;
-        }
-
-        .jb-auth-form-shell {
-            max-width: 520px;
-            width: 100%;
-            margin: 0 auto;
-        }
-
-        div[data-testid="stForm"] {
-            background: transparent !important;
-            border: none !important;
-            box-shadow: none !important;
-            padding: 0 !important;
-            margin: 0 !important;
-        }
-
-        div[data-testid="stForm"] > div {
-            padding: 0 !important;
-        }
-
-        div[role="radiogroup"] {
+        div[data-testid="column"]:has(.jb-auth-right-marker) > div,
+        div[data-testid="stHorizontalBlock"]:has(.jb-auth-poster-wrap) > div:nth-child(2) > div {
             width: 100% !important;
+        }
+
+        .jb-auth-right-marker {
+            height: 0 !important;
+            margin: 0 !important;
+            padding: 0 !important;
+        }
+
+        .jb-auth-form-space {
+            max-width: 480px;
+            margin: 0 auto;
+            padding: 0 clamp(24px, 4vw, 46px);
+        }
+
+        /* Onglets Connexion / Inscription. */
+        div[role="radiogroup"] {
+            max-width: 480px !important;
+            width: calc(100% - 64px) !important;
+            margin: 0 auto 34px auto !important;
             display: grid !important;
             grid-template-columns: 1fr 1fr !important;
             gap: 0 !important;
-            padding: 0 !important;
-            border-radius: 18px 18px 0 0 !important;
-            background: #ffffff !important;
+            padding: 6px !important;
+            border-radius: 18px !important;
+            background: #f1f5f9 !important;
             border: 1px solid #e2e8f0 !important;
-            border-bottom: none !important;
+            box-shadow: none !important;
             overflow: hidden !important;
-            margin-bottom: 0 !important;
         }
 
         div[role="radiogroup"] label {
@@ -4380,45 +4389,60 @@ def page_connexion():
         div[role="radiogroup"] label > div:last-child {
             width: 100% !important;
             text-align: center !important;
-            padding: 22px 10px 20px 10px !important;
+            padding: 14px 8px !important;
+            border-radius: 13px !important;
             color: #64748b !important;
-            font-size: 17px !important;
+            font-size: 16px !important;
+            line-height: 1.2 !important;
             font-weight: 900 !important;
-            border-bottom: 3px solid #e2e8f0 !important;
+            border: none !important;
             transition: all .16s ease !important;
         }
 
         div[role="radiogroup"] label:has(input:checked) p,
         div[role="radiogroup"] label:has(input:checked) > div:last-child {
-            color: #0b63f6 !important;
-            background: linear-gradient(180deg, #ffffff 0%, #f8fbff 100%) !important;
-            border-bottom-color: #0b63f6 !important;
+            color: #ffffff !important;
+            background: linear-gradient(135deg, #0b63f6 0%, #06b6d4 100%) !important;
+            box-shadow: 0 12px 25px rgba(11, 99, 246, 0.24) !important;
         }
 
-        .jb-auth-form-panel {
-            border: 1px solid #e2e8f0;
-            border-top: none;
-            border-radius: 0 0 18px 18px;
-            padding: 38px 38px 34px 38px;
-            background: #ffffff;
-            box-shadow: 0 18px 55px rgba(15, 23, 42, 0.08);
+        /* Le formulaire : pas de carte séparée, il fait partie du panneau blanc. */
+        div[data-testid="stForm"] {
+            max-width: 480px !important;
+            width: calc(100% - 64px) !important;
+            margin: 0 auto !important;
+            background: transparent !important;
+            border: none !important;
+            border-radius: 0 !important;
+            padding: 0 !important;
+            box-shadow: none !important;
+        }
+
+        div[data-testid="stForm"] > div {
+            padding: 0 !important;
         }
 
         .jb-auth-title {
-            color: #0f172a !important;
-            font-size: 35px !important;
-            line-height: 1.08;
+            color: #06132b !important;
+            font-size: clamp(30px, 3vw, 40px) !important;
+            line-height: 1.05 !important;
             font-weight: 950 !important;
-            letter-spacing: -1px;
-            margin: 0 0 10px 0;
+            letter-spacing: -1.2px !important;
+            margin: 0 0 10px 0 !important;
+            text-align: left !important;
         }
 
         .jb-auth-subtitle {
             color: #64748b !important;
-            font-size: 17px !important;
-            line-height: 1.55;
+            font-size: 16.5px !important;
+            line-height: 1.55 !important;
             font-weight: 650 !important;
-            margin: 0 0 30px 0;
+            margin: 0 0 28px 0 !important;
+            text-align: left !important;
+        }
+
+        div[data-testid="stTextInput"] {
+            margin-bottom: 18px !important;
         }
 
         div[data-testid="stTextInput"] label,
@@ -4426,22 +4450,24 @@ def page_connexion():
             color: #334155 !important;
             opacity: 1 !important;
             visibility: visible !important;
-            font-size: 15.5px !important;
-            font-weight: 900 !important;
+            font-size: 15px !important;
+            line-height: 1.2 !important;
+            font-weight: 850 !important;
             margin-bottom: 8px !important;
         }
 
         div[data-testid="stTextInput"] input,
         div[data-baseweb="input"] input {
-            min-height: 58px !important;
+            min-height: 56px !important;
+            width: 100% !important;
             background: #ffffff !important;
             color: #0f172a !important;
             border: 1.5px solid #dbe3ef !important;
-            border-radius: 13px !important;
+            border-radius: 15px !important;
             font-size: 16px !important;
             font-weight: 700 !important;
-            padding: 15px 16px !important;
-            box-shadow: none !important;
+            padding: 14px 16px !important;
+            box-shadow: 0 8px 22px rgba(15, 23, 42, 0.04) !important;
         }
 
         div[data-testid="stTextInput"] input:focus,
@@ -4456,7 +4482,7 @@ def page_connexion():
         }
 
         div[data-testid="stTextInput"] button {
-            border-radius: 0 13px 13px 0 !important;
+            border-radius: 0 15px 15px 0 !important;
             background: #ffffff !important;
             color: #475569 !important;
         }
@@ -4464,7 +4490,7 @@ def page_connexion():
         div[data-testid="stCheckbox"] label,
         div[data-testid="stCheckbox"] label p {
             color: #334155 !important;
-            font-size: 14.5px !important;
+            font-size: 14px !important;
             font-weight: 750 !important;
         }
 
@@ -4475,22 +4501,22 @@ def page_connexion():
 
         .jb-forgot-link a {
             color: #0b63f6 !important;
-            font-size: 14.5px !important;
-            font-weight: 900 !important;
+            font-size: 14px !important;
+            font-weight: 850 !important;
             text-decoration: none !important;
         }
 
         div[data-testid="stForm"] .stFormSubmitButton button {
             width: 100% !important;
-            min-height: 62px !important;
-            margin-top: 18px !important;
+            min-height: 60px !important;
+            margin-top: 16px !important;
             border: none !important;
-            border-radius: 14px !important;
+            border-radius: 16px !important;
             background: linear-gradient(135deg, #0b63f6 0%, #06b6d4 100%) !important;
             color: #ffffff !important;
             font-size: 17px !important;
             font-weight: 950 !important;
-            box-shadow: 0 18px 38px rgba(11, 99, 246, 0.28) !important;
+            box-shadow: 0 18px 38px rgba(11, 99, 246, 0.25) !important;
             transition: all .18s ease !important;
         }
 
@@ -4499,15 +4525,20 @@ def page_connexion():
             box-shadow: 0 22px 46px rgba(11, 99, 246, 0.34) !important;
         }
 
+        .jb-biometric-wrap {
+            max-width: 480px;
+            width: calc(100% - 64px);
+            margin: 26px auto 0 auto;
+        }
+
         .jb-biometric {
             display: flex;
             align-items: center;
             justify-content: center;
             gap: 14px;
-            margin-top: 28px;
             color: #94a3b8 !important;
             font-size: 13px !important;
-            font-weight: 800 !important;
+            font-weight: 850 !important;
         }
 
         .jb-biometric::before,
@@ -4521,89 +4552,155 @@ def page_connexion():
         .jb-fingerprint {
             width: 58px;
             height: 58px;
-            margin: 16px auto 0 auto;
+            margin: 18px auto 0 auto;
             border-radius: 50%;
-            background: #ffffff;
-            border: 1px solid #e2e8f0;
             display: flex;
             align-items: center;
             justify-content: center;
+            background: #ffffff;
+            border: 1px solid #e2e8f0;
             box-shadow: 0 14px 30px rgba(15, 23, 42, 0.08);
             color: #0b63f6 !important;
-            font-size: 31px !important;
+            font-size: 29px !important;
         }
 
         .jb-auth-footer {
+            max-width: 480px;
+            width: calc(100% - 64px);
+            margin: 28px auto 0 auto;
             text-align: center;
-            margin-top: 24px;
             color: #94a3b8 !important;
-            font-size: 11.5px !important;
+            font-size: 11px !important;
             font-weight: 950 !important;
             letter-spacing: 0.08em;
             text-transform: uppercase;
         }
 
-        .jb-auth-footer b { color: #ef4444 !important; }
-        .jb-auth-footer span { color: #0b63f6 !important; font-weight: 950 !important; }
-
-        div[data-testid="stAlert"] {
-            border-radius: 14px !important;
-            font-weight: 800 !important;
+        .jb-auth-footer span {
+            color: #0b63f6 !important;
+            font-size: inherit !important;
+            font-weight: 950 !important;
         }
 
+        .jb-auth-footer b {
+            color: #ef4444 !important;
+            font-size: inherit !important;
+        }
+
+        div[data-testid="stAlert"] {
+            max-width: 480px !important;
+            width: calc(100% - 64px) !important;
+            margin-left: auto !important;
+            margin-right: auto !important;
+            border-radius: 14px !important;
+            font-weight: 750 !important;
+        }
+
+        /* Tablettes : les panneaux passent l'un sous l'autre, sans casser la lisibilité. */
         @media (max-width: 980px) {
             .block-container {
-                max-width: 100% !important;
-                padding-top: 0.8rem !important;
-                padding-left: 0.65rem !important;
-                padding-right: 0.65rem !important;
-                padding-bottom: 1rem !important;
+                max-width: 760px !important;
+                padding-top: 18px !important;
+                padding-bottom: 22px !important;
+            }
+
+            div[data-testid="stHorizontalBlock"]:has(.jb-auth-poster-wrap) {
+                flex-direction: column !important;
+                min-height: auto !important;
             }
 
             .jb-auth-poster-wrap {
-                height: 560px !important;
-                min-height: 560px !important;
+                height: 520px !important;
+                min-height: 520px !important;
                 border-radius: 28px 28px 0 0 !important;
-                border-right: 1px solid rgba(148, 163, 184, 0.24) !important;
+                border-right: 1px solid rgba(226, 232, 240, 0.65) !important;
                 border-bottom: none !important;
             }
 
-            div[data-testid="column"]:has(.jb-auth-right-start) {
+            .jb-auth-poster-wrap img {
+                object-fit: cover !important;
+                object-position: center center !important;
+            }
+
+            div[data-testid="stHorizontalBlock"]:has(.jb-auth-poster-wrap) > div[data-testid="column"]:nth-child(2),
+            div[data-testid="stHorizontalBlock"]:has(.jb-auth-poster-wrap) > div:nth-child(2),
+            div[data-testid="column"]:has(.jb-auth-right-marker) {
                 height: auto !important;
                 min-height: auto !important;
                 border-radius: 0 0 28px 28px !important;
                 border-left: 1px solid rgba(226, 232, 240, 0.95) !important;
                 border-top: none !important;
-                padding: 28px 16px 26px 16px !important;
+                padding: 34px 0 38px 0 !important;
+            }
+        }
+
+        /* Téléphones : affiche plus compacte, formulaire plein écran propre. */
+        @media (max-width: 560px) {
+            .block-container {
+                padding: 0 !important;
+                max-width: 100% !important;
             }
 
-            .jb-auth-form-shell {
-                max-width: 100%;
+            .jb-auth-poster-wrap {
+                height: 360px !important;
+                min-height: 360px !important;
+                border-radius: 0 !important;
+                border-left: none !important;
+                border-right: none !important;
             }
 
-            .jb-auth-form-panel {
-                padding: 26px 18px 24px 18px !important;
+            .jb-auth-poster-wrap img {
+                object-fit: cover !important;
+                object-position: center top !important;
             }
 
-            .jb-auth-title {
-                font-size: 29px !important;
+            div[data-testid="stHorizontalBlock"]:has(.jb-auth-poster-wrap) > div[data-testid="column"]:nth-child(2),
+            div[data-testid="stHorizontalBlock"]:has(.jb-auth-poster-wrap) > div:nth-child(2),
+            div[data-testid="column"]:has(.jb-auth-right-marker) {
+                border-radius: 0 !important;
+                border-left: none !important;
+                border-right: none !important;
+                padding: 24px 0 30px 0 !important;
             }
 
-            .jb-auth-subtitle {
-                font-size: 15px !important;
+            div[role="radiogroup"],
+            div[data-testid="stForm"],
+            .jb-biometric-wrap,
+            .jb-auth-footer,
+            div[data-testid="stAlert"] {
+                width: calc(100% - 28px) !important;
+                max-width: none !important;
+            }
+
+            div[role="radiogroup"] {
+                margin-bottom: 26px !important;
+                border-radius: 16px !important;
             }
 
             div[role="radiogroup"] label p,
             div[role="radiogroup"] label > div:last-child {
                 font-size: 15px !important;
-                padding: 18px 8px 16px 8px !important;
+                padding: 13px 6px !important;
             }
-        }
 
-        @media (max-width: 560px) {
-            .jb-auth-poster-wrap {
-                height: 470px !important;
-                min-height: 470px !important;
+            .jb-auth-title {
+                font-size: 30px !important;
+            }
+
+            .jb-auth-subtitle {
+                font-size: 14.5px !important;
+                margin-bottom: 22px !important;
+            }
+
+            div[data-testid="stTextInput"] input,
+            div[data-baseweb="input"] input {
+                min-height: 52px !important;
+                font-size: 15px !important;
+            }
+
+            .jb-forgot-link {
+                text-align: left !important;
+                padding-top: 0 !important;
             }
         }
     </style>
@@ -4618,7 +4715,7 @@ def page_connexion():
     if "auth_mode_a_appliquer" in st.session_state:
         st.session_state["auth_mode"] = st.session_state.pop("auth_mode_a_appliquer")
 
-    col_affiche, col_form = st.columns([1.17, 0.83], gap="small")
+    col_affiche, col_form = st.columns([1.08, 0.92], gap="small")
 
     with col_affiche:
         st.markdown(
@@ -4631,7 +4728,7 @@ def page_connexion():
         )
 
     with col_form:
-        st.markdown('<div class="jb-auth-right-start"></div><div class="jb-auth-form-shell">', unsafe_allow_html=True)
+        st.markdown('<div class="jb-auth-right-marker"></div>', unsafe_allow_html=True)
 
         mode = st.radio(
             "Choisissez une action",
@@ -4646,16 +4743,15 @@ def page_connexion():
             st.success(notice)
 
         if mode == "Connexion":
-            st.markdown(
-                """
-                <div class="jb-auth-form-panel">
+            with st.form("connexion"):
+                st.markdown(
+                    """
                     <div class="jb-auth-title">Bon retour !</div>
                     <div class="jb-auth-subtitle">Connectez-vous à votre compte pour accéder à votre portefeuille.</div>
-                """,
-                unsafe_allow_html=True
-            )
+                    """,
+                    unsafe_allow_html=True
+                )
 
-            with st.form("connexion"):
                 email = st.text_input(
                     "Email",
                     placeholder="exemple@domaine.com",
@@ -4693,6 +4789,7 @@ def page_connexion():
 
             st.markdown(
                 """
+                <div class="jb-biometric-wrap">
                     <div class="jb-biometric">ou continuer avec</div>
                     <div class="jb-fingerprint"><i class="bi bi-fingerprint"></i></div>
                 </div>
@@ -4701,16 +4798,15 @@ def page_connexion():
             )
 
         else:
-            st.markdown(
-                """
-                <div class="jb-auth-form-panel">
+            with st.form("inscription"):
+                st.markdown(
+                    """
                     <div class="jb-auth-title">Créer un compte</div>
                     <div class="jb-auth-subtitle">Ouvrez votre espace JordyBusiness en quelques secondes.</div>
-                """,
-                unsafe_allow_html=True
-            )
+                    """,
+                    unsafe_allow_html=True
+                )
 
-            with st.form("inscription"):
                 nom = st.text_input(
                     "Nom complet",
                     placeholder="Votre nom complet",
@@ -4762,18 +4858,14 @@ def page_connexion():
                         else:
                             st.error(message)
 
-            st.markdown("</div>", unsafe_allow_html=True)
-
         st.markdown(
             """
             <div class="jb-auth-footer">
                 Created with <b>♥</b> by <span>JordyBalou</span>
             </div>
-            </div>
             """,
             unsafe_allow_html=True
         )
-
 
 def page_tableau_de_bord():
     utilisateur = st.session_state["utilisateur"]
